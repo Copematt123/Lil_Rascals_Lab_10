@@ -1,0 +1,38 @@
+---
+title: "Lil_Rascals_Lab_11"
+author: "Matthew Copeland"
+date: "April 3, 2019"
+output: html_document
+---
+
+```{r}
+library(babynames)
+library(tidyverse)
+library(dbplyr)
+library(stringr)
+```
+
+
+##
+#
+```{}
+
+```
+
+##
+#
+```{}
+
+```
+
+##
+#
+```{}
+
+```
+
+##
+#
+```{}
+
+```
