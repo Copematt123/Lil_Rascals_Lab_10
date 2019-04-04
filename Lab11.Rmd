@@ -10,9 +10,21 @@ library(babynames)
 library(tidyverse)
 library(dbplyr)
 library(stringr)
+library(forcats)
 ```
 
 
+##Matthews Individual
+#
+```{r}
+First3 <- babynames %>% mutate(first3 = substr(name,1,3)) %>% filter(first3 == "Mat")
+Sum <- sum(First3$n)
+SOY <- First3 %>% group_by(year) %>% summarize(n = sum(n)/Sum)
+ggplot(data = SOY)+
+  geom_col(aes(x = year, y = n), position = "dodge")+
+  xlab("Year")+
+  ylab("Proportion of Names")+
+  ggtitle("Proportion of Names That Start With 'Mat'\nThroughout the Years ")
 ### James' name popularity over time
 ```{r}
 library(babynames)
