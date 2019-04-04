@@ -13,8 +13,7 @@ library(stringr)
 ```
 
 
-## James' name popularity over time
-#
+### James' name popularity over time
 ```{r}
 library(babynames)
 library(tidyverse)
