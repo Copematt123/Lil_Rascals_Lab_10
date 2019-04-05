@@ -98,6 +98,36 @@ I found that the actual change was a decrease of .010925 and the relative decrea
 names. 
 
 
+###Shreeya's Individual
+```{r}
+shreeya <- babynames %>% filter(name == "Shreeya") 
+
+firstThree <- babynames %>% filter(str_detect(babynames$name, "Shr"))
+
+
+ggplot(firstThree, aes(x = year, y = prop)) + 
+  geom_point(aes(color = sex)) +
+  ggtitle("Proportion Of 'Shr' Names Over Time") +
+  geom_smooth(mapping = aes(x = year, y = prop, color = sex)) 
+
+ggplot(shreeya, aes(x = year, y = prop)) + 
+  geom_point(aes(color = sex)) +
+  ggtitle("Proportion of 'Shreeya' as a name over time") +
+  geom_smooth(mapping = aes(x = year, y = prop, color = sex))
+
+ggplot(shreeya, aes(x = year, y = n)) + 
+  geom_point(aes(color = sex)) +
+  ggtitle("Popularity of 'Shreeya' as a name over time") +
+  geom_smooth(mapping = aes(x = year, y = n, color = sex))+
+  ylab("count")
+
+ggplot(shreeya, aes (x = n)) + 
+  geom_histogram(aes(binwidth = 5, fill = "yellow")) +
+  ggtitle("Histogram of 'Shreeya' as a name")
+```
+Findings: When I was born my name was extremely uncommon in the U.S and over time rose in popularity a little bit. This is due to the fact that a lot of south asian immigration occurred in the 90's and my name is pretty rare for an Indian. In fact, the year I was born there were only 5 Shreeyas born. Interestingly, due to cultural and religious reasons, there are very similar names to mine but ultimately there is only one spelling of my name that is still my name in meaning and sound. In addition, my name is so uncommon that it won't show up in a graph of all "shr" names. That's why the popularity of my name is plotted on separate graphs. The first instance of my name showing up is in 1996, and the peak popularity of my name occurred in 2017. I was born in 1999, and the difference in popularity from 1996-1999 is very small(between 5-7 instances). However, the peak of children named "Shreeya" did rise to 38 one year, which is a lot more than 5(as in my year). 
+
+
 ###Ariel names
 
 ```{r}
@@ -188,4 +218,10 @@ I also added the Rachel analysis and stuff for her name.
 Matthew's Summary:
   I worked on my individual name part where I filtered out the names that had the "Mat" and also My full name.
   Once I graphed it I could see the popularity change overtime and made conclusions based on it. I also worked with the Ariel names and the little mermaid where when i graphed you could see the change from when the movie little mermaid came out. 
-   I also worked with the Little mermaid part in which i had to manipulate the data to see the change after the movie was released. 
+   I also worked with the Little mermaid part in which i had to manipulate the data to see the change after the movie was released.
+ 
+James Summary: 
+  I dealt with my individual name and plots of it. I knew that my name was always quite  popular, but I did not know that it was that widespread in the 50s. It is also interesting that although names that start with Jam declined with the name James, not at the same rate, because a lot of similar versions of the name were used.
+
+
+
