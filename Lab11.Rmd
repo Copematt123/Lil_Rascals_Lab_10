@@ -52,8 +52,8 @@ ggplot()+
   geom_line(data = James, aes(x = year, y = sum), color = "red")
 ```
 
-##Ariel names
-#
+###Ariel and Rachel regexs
+Question: How many versions of the female name “Ariel” were there in 1973? 1988? 1990? How many versions for the female name “Rachel” for those years? What are the chances a girl born in 1973 would be named either Rachel or Ariel (including various versions)? In 1988? In 1990? In 2017? 
 ```{r}
 #Different ways to spell ariel
 Ariel <- filter(babynames, str_detect(babynames$name, pattern = "(Ariel)|(Arielle)|(Arial)|(Aerial)|(Aurielle)|(Eriel)|(Ariell)|(Erielle)|(Aryel)|(Aeriel)|(Aryelle)|(Arrielle)|(Ariele)|(Aariel)|(Erial)|(Auriel)|(Arieal)|(Aerielle)")) %>% group_by(year) %>% summarise(n = sum(n))
@@ -61,6 +61,14 @@ Ariel <- filter(babynames, str_detect(babynames$name, pattern = "(Ariel)|(Ariell
 Ariel %>% filter(year == "1973")
 Ariel %>% filter(year == "1988")
 Ariel %>% filter(year == "1990")
+#probability of someone being named ariel
+Ariel2 <- Ariel %>% mutate(prob = (Ariel$n)/133630)
+Ariel2 %>% filter(year == "1973")
+Ariel2 %>% filter(year == "1988")
+Ariel2 %>% filter(year == "1990")
+Ariel2 %>% filter(year == "2017")
+ggplot(data = Ariel2)+
+  geom_col(aes(x = year, y = prob), position = "dodge")
 #graph of ariel names
 ggplot(data = Ariel)+
   geom_col(aes(x = year, y = n))+
@@ -69,11 +77,18 @@ ggplot(data = Ariel)+
   xlab("Year")+
   ylab("Number of Occurances")
 ```
+Findings: -Ariel: The name Ariel started to gain popularity after 1960 and then sky rocketed after the little mermaid movie. In 1973 there were 172 versions of the name Ariel, in 1988 there were 2167, and in 1990 there were 6223. For the probability of being named Ariel in 1973 is .1%, and in 1988 the probability would be 1.6%, in 1990 the probability is 4.6%, and in 2017 it is 3.9% 
+          -Rachel:
 
-##
+###The Little Mermaid Effect
 #
 ```{r}
-
+ggplot(data = Ariel)+
+  geom_col(aes(x = year, y = n))+
+  geom_vline(xintercept = 1989, color = "red", size = 2)+
+  ggtitle("Number of Ariel names by Year")+
+  xlab("Year")+
+  ylab("Number of Occurances")
 ```
 
 ##
