@@ -25,6 +25,9 @@ ggplot(data = SOY)+
   xlab("Year")+
   ylab("Proportion of Names")+
   ggtitle("Proportion of Names That Start With 'Mat'\nThroughout the Years ")
+```
+
+
 ### James' name popularity over time
 ```{r}
 library(babynames)
@@ -36,8 +39,8 @@ babynames3 <- babynames %>% filter(name == "James")
 Jam <- babynames2 %>% group_by(year) %>% summarise(sum = sum(prop))
 James <- babynames3 %>% group_by(year) %>% summarise(sum = sum(prop))
 ggplot()+
-  geom_col(data = Jam, aes(x = year, y = sum), color = "red")+
-  geom_col(data = James, aes(x = year, y = sum), color = "blue")
+  geom_col(data = Jam, aes(x = year, y = sum), color = "blue")+
+  geom_line(data = James, aes(x = year, y = sum), color = "red")
 ```
 
 ##
