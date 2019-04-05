@@ -49,8 +49,19 @@ Jam <- babynames2 %>% group_by(year) %>% summarise(sum = sum(prop))
 James <- babynames3 %>% group_by(year) %>% summarise(sum = sum(prop))
 ggplot()+
   geom_col(data = Jam, aes(x = year, y = sum), color = "blue")+
-  geom_line(data = James, aes(x = year, y = sum), color = "red")
+  geom_line(data = James, aes(x = year, y = sum), color = "red")+
+  ylab("Proportion of names
+       Blue = names that start with Jam
+       Red = babies named James")+
+  ggtitle("The Name James Throughout the Years")+
+  ylab("Year")
 ```
+James Discussion: 
+  From the graphs you can see that names starting with Jam increased to its peak from the 20s to about the 50s. It then has quite steadily declined since the 50s until the 20s when it started to plateau. Through the period between 1880 and 2017 the proportion of babies with my name dropped from 0.0502, to 0.0093. However as the name James decreased in popularity, many more similar names were being used
+
+James Summary: 
+  I dealt with my individual name and plots of it. I knew that my name was always quite  popular, but I did not know that it was that widespread in the 50s. It is also interesting that although names that start with Jam declined with the name James, not at the same rate, because a lot of similar versions of the name were used.
+
 ### Kelsey Individual
 ```{r}
 babynames <- babynames
@@ -83,9 +94,8 @@ during the 60's.
 In addition, I found that the name Kelsey's popularity increased a lot in the 80's 
 then decreased in more recent years. I found that the proportion of Kelsey's in the 
 year I was born 1997 was 1.495*10^-2 and in 2017 it was 4.019*10^-3. 
-I found that the actual change was a decrease of .010925 and the relative decrease was 
-.73105. I split the gender on the plot in order to deal with the differences in Kel 
-names.
+I found that the actual change was a decrease of .010925 and the relative decrease was .73105. I split the gender on the plot in order to deal with the differences in Kel 
+names. 
 
 
 ###Ariel names
