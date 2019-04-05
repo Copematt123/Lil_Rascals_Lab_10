@@ -17,14 +17,23 @@ library(forcats)
 ##Matthews Individual
 #
 ```{r}
+MAT <- babynames %>% filter(name == "Matthew") %>% group_by(year) %>% summarise(n = sum(n))
+
 First3 <- babynames %>% mutate(first3 = substr(name,1,3)) %>% filter(first3 == "Mat")
 Sum <- sum(First3$n)
 SOY <- First3 %>% group_by(year) %>% summarize(n = sum(n)/Sum)
-ggplot(data = SOY)+
-  geom_col(aes(x = year, y = n), position = "dodge")+
+
+ggplot()+
+  geom_col(data = SOY, aes(x = year, y = n), position = "dodge", fill = "blue")+
   xlab("Year")+
   ylab("Proportion of Names")+
   ggtitle("Proportion of Names That Start With 'Mat'\nThroughout the Years ")
+
+ggplot(data = MAT)+
+  geom_col(aes(x = year, y = n), position = "dodge", fill = "red")+
+  xlab("Year")+
+  ylab("Number of Occurances")+
+  ggtitle("The Name 'Matthew' Throughout the Years")
 ```
 
 
@@ -43,10 +52,22 @@ ggplot()+
   geom_line(data = James, aes(x = year, y = sum), color = "red")
 ```
 
-##
+##Ariel names
 #
 ```{r}
-
+#Different ways to spell ariel
+Ariel <- filter(babynames, str_detect(babynames$name, pattern = "(Ariel)|(Arielle)|(Arial)|(Aerial)|(Aurielle)|(Eriel)|(Ariell)|(Erielle)|(Aryel)|(Aeriel)|(Aryelle)|(Arrielle)|(Ariele)|(Aariel)|(Erial)|(Auriel)|(Arieal)|(Aerielle)")) %>% group_by(year) %>% summarise(n = sum(n))
+#Names of ariel in three specific years
+Ariel %>% filter(year == "1973")
+Ariel %>% filter(year == "1988")
+Ariel %>% filter(year == "1990")
+#graph of ariel names
+ggplot(data = Ariel)+
+  geom_col(aes(x = year, y = n))+
+  geom_vline(xintercept = 1989, color = "red", size = 2)+
+  ggtitle("Number of Ariel names by Year")+
+  xlab("Year")+
+  ylab("Number of Occurances")
 ```
 
 ##
