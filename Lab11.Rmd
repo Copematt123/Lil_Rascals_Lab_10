@@ -14,8 +14,7 @@ library(forcats)
 ```
 
 
-##Matthews Individual
-#
+###Matthew's name popularity over time
 ```{r}
 MAT <- babynames %>% filter(name == "Matthew") %>% group_by(year) %>% summarise(n = sum(n))
 
@@ -52,8 +51,8 @@ ggplot()+
   geom_line(data = James, aes(x = year, y = sum), color = "red")
 ```
 
-###Ariel and Rachel regexs
-Question: How many versions of the female name “Ariel” were there in 1973? 1988? 1990? How many versions for the female name “Rachel” for those years? What are the chances a girl born in 1973 would be named either Rachel or Ariel (including various versions)? In 1988? In 1990? In 2017? 
+###Ariel names
+
 ```{r}
 #Different ways to spell ariel
 Ariel <- filter(babynames, str_detect(babynames$name, pattern = "(Ariel)|(Arielle)|(Arial)|(Aerial)|(Aurielle)|(Eriel)|(Ariell)|(Erielle)|(Aryel)|(Aeriel)|(Aryelle)|(Arrielle)|(Ariele)|(Aariel)|(Erial)|(Auriel)|(Arieal)|(Aerielle)")) %>% group_by(year) %>% summarise(n = sum(n))
@@ -67,32 +66,117 @@ Ariel2 %>% filter(year == "1973")
 Ariel2 %>% filter(year == "1988")
 Ariel2 %>% filter(year == "1990")
 Ariel2 %>% filter(year == "2017")
-ggplot(data = Ariel2)+
-  geom_col(aes(x = year, y = prob), position = "dodge")
-#graph of ariel names
 ggplot(data = Ariel)+
   geom_col(aes(x = year, y = n))+
-  geom_vline(xintercept = 1989, color = "red", size = 2)+
   ggtitle("Number of Ariel names by Year")+
   xlab("Year")+
   ylab("Number of Occurances")
 ```
-Findings: -Ariel: The name Ariel started to gain popularity after 1960 and then sky rocketed after the little mermaid movie. In 1973 there were 172 versions of the name Ariel, in 1988 there were 2167, and in 1990 there were 6223. For the probability of being named Ariel in 1973 is .1%, and in 1988 the probability would be 1.6%, in 1990 the probability is 4.6%, and in 2017 it is 3.9% 
-          -Rachel:
+
+### Rachel Names
+```{r}
+#Different ways to spell ariel
+Rachel <- filter(babynames, str_detect(babynames$name, pattern = "(Rachel)|(Rachael)")) %>% group_by(year) %>% summarise(n = sum(n))
+Rachel2 <- filter(babynames, str_detect(babynames$name, pattern = "(Rachel)|(Rachael)")) %>% group_by(year) %>% summarise(prop = sum(prop))
+#Names of ariel in three specific years
+Rachel %>% filter(year == "1973")
+Rachel %>% filter(year == "1988")
+Rachel %>% filter(year == "1990")
+Rachel %>% filter(year == "2017")
+Rachel2 %>% filter(year == "1973")
+Rachel2 %>% filter(year == "1988")
+Rachel2 %>% filter(year == "1990")
+Rachel2 %>% filter(year == "2017")
+#graph of ariel names
+ggplot(data = Rachel)+
+  geom_col(aes(x = year, y = n))+
+  ggtitle("Number of Rachel names by Year")+
+  xlab("Year")+
+  ylab("Number of Occurances")
+```
+###Ariel and Rachel Summary: 
+There were 172 versions of Ariel in 1973, 2167 in 1988, and 6223 in 1990. 
+For Rachel there were 8136 in 1973, 19380 in 1988 and 19813 in 1990. 
+
+The proportion of Ariels was .000108 ub 1973, .00112 in 1988, and .00302 in 1990. 
+Whereas the proportion of Rachels was .00523 in 1973, .0101 in 1988, .00965 in 1990, and .000953 ub 2017. 
+So the proportion of Rachels has always been higher and peaked in 1988ish whereas the proportion of Ariels was always lower but increase steadily over these years. 
+
+The plots show that the name Rachel was unimodal and peaked in 1988ish. The plot of Ariel is bimodal and shows it peaked and the has started gaining popularity again in recent years
 
 ###The Little Mermaid Effect
-#
+Question: Did The Little Mermaid cause more baby girls to be named Ariel?
 ```{r}
 ggplot(data = Ariel)+
   geom_col(aes(x = year, y = n))+
-  geom_vline(xintercept = 1989, color = "red", size = 2)+
+  geom_vline(xintercept = 1989, color = "red", size = 1)+
   ggtitle("Number of Ariel names by Year")+
   xlab("Year")+
   ylab("Number of Occurances")
-```
 
-##
-#
+ggplot(data = Ariel2)+
+  geom_col(aes(x = year, y = prob), position = "dodge")
+
+#graph of female names
+FN <- babynames %>% filter(sex == "F") %>% group_by(year) %>% summarise(n = sum(n)) %>% filter(year >= 1988, year <= 1990)
+AN <- Ariel %>% filter(year >= 1988, year <= 1990)
+FNG <- ggplot(data = FN)+
+  geom_smooth(aes(x = year, y = n))
+ANG <- ggplot(data = AN)+
+  geom_smooth(aes(x = year, y = n))
+plot_grid(FNG,ANG, ncol = 2)
+```
+Findings: As you can see in the graph there is a big spike after 1989 of children being named Ariel as showed by the vertical line. As well the proportion of childeren being named Ariel rises at the 1980 range which would make sense if the number of names goes up then the propbability would go up as well. When looking at the change of all female names and Ariel names they both have the same shape but for all female names the numbers are much higher since its all the names instead of just one
+
+
+### Kelsey Individual
 ```{r}
+babynames <- babynames
+Kelsey <- babynames %>% mutate(first3 = substr(name,1,3)) %>% filter(first3 == "Kel")
+Sum <- sum(Kelsey$n)
+yearkel <- Kelsey %>% group_by(year) %>% summarize(n = sum(n)/Sum)
+Kelsey <- babynames %>% mutate(first3 = substr(name,1,3)) %>% filter(first3 == "Kel")
+babynames1 <- babynames %>% filter(str_detect(name, "Kelsey|Kelsie|Kelsea"))
+a1 <- ggplot(data = yearkel)+
+  geom_col(aes(x = year, y = n), position = "dodge")+
+  geom_vline(xintercept = 1997, color = "red", size = .3)+
+  geom_vline(xintercept = 2017, color = "blue", size = .3)+
+  xlab("Year")+
+  ylab("Proportion of Names")+
+  ggtitle("Proportion of Names That Start With 'Kel'\nThroughout the Years ")
+a2 <- ggplot(data = babynames1)+
+  geom_jitter( mapping = aes(x=year, y = prop, color = sex))+
+  geom_smooth( mapping = aes(x=year, y = prop, color = sex))+
+    geom_vline(xintercept = 1997, color = "red", size = .3)+
+  geom_vline(xintercept = 2017, color = "blue", size = .3)+
+  xlab("Year")+
+  ylab("Proportion of Names")+
+  ggtitle("Proportion of Kelsey Names Throughout the Years ")
+plot_grid(a1, a2, ncol=2)
 
 ```
+Kelsey Discussion: 
+  From the graphs you can see that names starting with Kel increased dramatically 
+during the 60's. 
+In addition, I found that the name Kelsey's popularity increased a lot in the 80's 
+then decreased in more recent years. I found that the proportion of Kelsey's in the 
+year I was born 1997 was 1.495*10^-2 and in 2017 it was 4.019*10^-3. 
+I found that the actual change was a decrease of .010925 and the relative decrease was 
+.73105. I split the gender on the plot in order to deal with the differences in Kel 
+names.
+
+###Team Summary
+Kelsey Summary: 
+  I dealt with my individual name and plots of it. It was interesting to see how my 
+name's popularity peaked in the 80's then has lately become less popular. 
+I worked with one data set that combined all the Kelsey's by year then I dealt 
+with the Kel only and plotted them both side by side to see the differences and compare. 
+I also added the Rachel analysis and stuff for her name.  
+
+Matthew's Summary:
+
+
+Jame's Summary:
+
+
+Shreeya's Summary:
