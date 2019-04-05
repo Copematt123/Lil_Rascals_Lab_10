@@ -34,6 +34,7 @@ ggplot(data = MAT)+
   ylab("Number of Occurances")+
   ggtitle("The Name 'Matthew' Throughout the Years")
 ```
+Matthew's Findings: Looking at these graphs you can see that the n the first 3 letter "Mat" of my name have been used since the 1800's but looking at the name "Matthew" it seems to start in the 1900's. The trend gradually grows for both graphs as time goes on and then peaks around the late 1900's. The name stayed popular to today and but is on a decline over time.
 
 
 ### James' name popularity over time
@@ -50,6 +51,42 @@ ggplot()+
   geom_col(data = Jam, aes(x = year, y = sum), color = "blue")+
   geom_line(data = James, aes(x = year, y = sum), color = "red")
 ```
+### Kelsey Individual
+```{r}
+babynames <- babynames
+Kelsey <- babynames %>% mutate(first3 = substr(name,1,3)) %>% filter(first3 == "Kel")
+Sum <- sum(Kelsey$n)
+yearkel <- Kelsey %>% group_by(year) %>% summarize(n = sum(n)/Sum)
+Kelsey <- babynames %>% mutate(first3 = substr(name,1,3)) %>% filter(first3 == "Kel")
+babynames1 <- babynames %>% filter(str_detect(name, "Kelsey|Kelsie|Kelsea"))
+a1 <- ggplot(data = yearkel)+
+  geom_col(aes(x = year, y = n), position = "dodge")+
+  geom_vline(xintercept = 1997, color = "red", size = .3)+
+  geom_vline(xintercept = 2017, color = "blue", size = .3)+
+  xlab("Year")+
+  ylab("Proportion of Names")+
+  ggtitle("Proportion of Names That Start With 'Kel'\nThroughout the Years ")
+a2 <- ggplot(data = babynames1)+
+  geom_jitter( mapping = aes(x=year, y = prop, color = sex))+
+  geom_smooth( mapping = aes(x=year, y = prop, color = sex))+
+    geom_vline(xintercept = 1997, color = "red", size = .3)+
+  geom_vline(xintercept = 2017, color = "blue", size = .3)+
+  xlab("Year")+
+  ylab("Proportion of Names")+
+  ggtitle("Proportion of Kelsey Names Throughout the Years ")
+plot_grid(a1, a2, ncol=2)
+
+```
+Kelsey Discussion: 
+  From the graphs you can see that names starting with Kel increased dramatically 
+during the 60's. 
+In addition, I found that the name Kelsey's popularity increased a lot in the 80's 
+then decreased in more recent years. I found that the proportion of Kelsey's in the 
+year I was born 1997 was 1.495*10^-2 and in 2017 it was 4.019*10^-3. 
+I found that the actual change was a decrease of .010925 and the relative decrease was 
+.73105. I split the gender on the plot in order to deal with the differences in Kel 
+names.
+
 
 ###Ariel names
 
@@ -129,41 +166,6 @@ plot_grid(FNG,ANG, ncol = 2)
 Findings: As you can see in the graph there is a big spike after 1989 of children being named Ariel as showed by the vertical line. As well the proportion of childeren being named Ariel rises at the 1980 range which would make sense if the number of names goes up then the propbability would go up as well. When looking at the change of all female names and Ariel names they both have the same shape but for all female names the numbers are much higher since its all the names instead of just one
 
 
-### Kelsey Individual
-```{r}
-babynames <- babynames
-Kelsey <- babynames %>% mutate(first3 = substr(name,1,3)) %>% filter(first3 == "Kel")
-Sum <- sum(Kelsey$n)
-yearkel <- Kelsey %>% group_by(year) %>% summarize(n = sum(n)/Sum)
-Kelsey <- babynames %>% mutate(first3 = substr(name,1,3)) %>% filter(first3 == "Kel")
-babynames1 <- babynames %>% filter(str_detect(name, "Kelsey|Kelsie|Kelsea"))
-a1 <- ggplot(data = yearkel)+
-  geom_col(aes(x = year, y = n), position = "dodge")+
-  geom_vline(xintercept = 1997, color = "red", size = .3)+
-  geom_vline(xintercept = 2017, color = "blue", size = .3)+
-  xlab("Year")+
-  ylab("Proportion of Names")+
-  ggtitle("Proportion of Names That Start With 'Kel'\nThroughout the Years ")
-a2 <- ggplot(data = babynames1)+
-  geom_jitter( mapping = aes(x=year, y = prop, color = sex))+
-  geom_smooth( mapping = aes(x=year, y = prop, color = sex))+
-    geom_vline(xintercept = 1997, color = "red", size = .3)+
-  geom_vline(xintercept = 2017, color = "blue", size = .3)+
-  xlab("Year")+
-  ylab("Proportion of Names")+
-  ggtitle("Proportion of Kelsey Names Throughout the Years ")
-plot_grid(a1, a2, ncol=2)
-
-```
-Kelsey Discussion: 
-  From the graphs you can see that names starting with Kel increased dramatically 
-during the 60's. 
-In addition, I found that the name Kelsey's popularity increased a lot in the 80's 
-then decreased in more recent years. I found that the proportion of Kelsey's in the 
-year I was born 1997 was 1.495*10^-2 and in 2017 it was 4.019*10^-3. 
-I found that the actual change was a decrease of .010925 and the relative decrease was 
-.73105. I split the gender on the plot in order to deal with the differences in Kel 
-names.
 
 ###Team Summary
 Kelsey Summary: 
@@ -174,6 +176,9 @@ with the Kel only and plotted them both side by side to see the differences and 
 I also added the Rachel analysis and stuff for her name.  
 
 Matthew's Summary:
+  I worked on my individual name part where I filtered out the names that had the "Mat" and also My full name.
+  Once I graphed it I could see the popularity change overtime and made conclusions based on it. I also worked with the Ariel names and the little mermaid where when i graphed you could see the change from when the movie little mermaid came out. 
+   I also worked with the Little mermaid part in which i had to manipulate the data to see the change after the movie was released. 
 
 
 Jame's Summary:
